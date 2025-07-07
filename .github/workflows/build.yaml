@@ -3,7 +3,7 @@ name: Build
 on:
   push:
     branches: main
-
+  workflow_dispatch:  # ✅ 添加这一行以启用手动触发
 jobs:
   build:
     name: Build
