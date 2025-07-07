@@ -2,8 +2,9 @@ name: Build
 
 on:
   push:
-    branches: main
+    branches: [main]
   workflow_dispatch:  # ✅ 添加这一行以启用手动触发
+
 jobs:
   build:
     name: Build
@@ -34,7 +35,7 @@ jobs:
         with:
           context: .
           file: ./docker/Dockerfile
-          platforms: linux/amd64, linux/arm64
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/dujiaoka:latest
@@ -49,12 +50,12 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/dujiaoka:usdt
 
-        - name: Build TokenPay
-          uses: docker/build-push-action@v6
-          with:
-            context: ./tokenpay/src
-            file: ./tokenpay/src/Dockerfile
-            platforms: linux/amd64,linux/arm64
-            push: true
-            tags: |
-              ${{ secrets.DOCKER_USERNAME }}/dujiaoka:tokenpay
+      - name: Build TokenPay
+        uses: docker/build-push-action@v6
+        with:
+          context: ./tokenpay/src
+          file: ./tokenpay/src/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/dujiaoka:tokenpay
